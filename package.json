@@ -1,0 +1,18 @@
+{
+  "name": "toast.js",
+  "version": "0.1.0",
+  "description": "A javascript modal for the web",
+  "keywords": [
+    "dom"
+  ],
+  "license": "MIT",
+  "author": "gaopeng",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mistory/toast.js"
+  },
+  "bugs": {
+    "url": "https://github.com/mistory/toast.js/issues"
+  },
+  "main": "toast.js"
+}
