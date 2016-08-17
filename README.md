@@ -1,6 +1,9 @@
 # toast.js
 A javascript modal for the web
 
+### demo
+* [demo](https://mistory.github.io/toast.js/demo/index.html)
+
 ### Import
 ``` html
 <link rel="stylesheet" href="toast.css">
