@@ -14,13 +14,6 @@
 </style>
 </head>
 <body>
-<ul>
-	<li class="child">1</li>
-	<li class="child">2</li>
-	<li class="child">3</li>
-	<li class="child">4</li>
-	<li class="child">5</li>
-</ul>
 <button id="confirm">confirm</button>
 <button id="alert">alert</button>
 <button id="prompt">prompt</button>
@@ -31,7 +24,7 @@ var confirmBtn = document.getElementById('confirm'),
 	promptBtn = document.getElementById('prompt');
 
 confirmBtn.addEventListener('click', function(){
-	toast.confirm('我',function(){
+	toast.confirm('hello',function(){
 		toast.alert('okBtn')
 	},function(){
 		toast.alert('cancelBtn')
@@ -39,11 +32,11 @@ confirmBtn.addEventListener('click', function(){
 },false)
 
 alertBtn.addEventListener('click', function(){
-	toast.alert('我')
+	toast.alert('hello')
 },false)
 
 promptBtn.addEventListener('click', function(){
-	toast.prompt('我',function(){
+	toast.prompt('hello',function(){
 		toast.alert('您输入的值为：'+this.val())
 	},function(){
 		toast.alert('cancelBtn')
