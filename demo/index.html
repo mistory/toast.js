@@ -25,21 +25,21 @@ var confirmBtn = document.getElementById('confirm'),
 
 confirmBtn.addEventListener('click', function(){
 	toast.confirm('hello',function(){
-		toast.alert('okBtn')
+		alert('okBtn')
 	},function(){
-		toast.alert('cancelBtn')
+		alert('cancelBtn')
 	})
 },false)
 
 alertBtn.addEventListener('click', function(){
-	toast.alert('hello')
+	alert('hello')
 },false)
 
 promptBtn.addEventListener('click', function(){
 	toast.prompt('hello',function(){
-		toast.alert('您输入的值为：'+this.val())
+		alert(this.val())
 	},function(){
-		toast.alert('cancelBtn')
+		alert('cancelBtn')
 	})
 },false)
 </script>
