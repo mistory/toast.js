@@ -27,4 +27,6 @@ toast.prompt('hello',function(){
 },function(){
 	// console.log('cancel')
 })
+
+toast.makeText('message')
 ```
