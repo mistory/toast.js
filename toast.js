@@ -12,6 +12,7 @@
     var Toast = function(){
         this.handleClick = function(){},
         this.value = '';
+        this.toasts = [];
     };
 
     Toast.prototype = {
@@ -24,9 +25,6 @@
                 sure:function(){},
                 cancel:function(){}
             });
-        },
-        makeText:function(){
-            
         },
         confirm:function(message,sureCallBack,cancelCallBack){
             this._render({
@@ -47,8 +45,14 @@
                 }.bind(this)
             });
         },
-        pop:function(){
+        makeText:function(message){
+            var toast = this._renderToast(message)
 
+            setTimeout(function(){
+                this._hide(toast,function(){});
+            }.bind(this), 2000)
+
+            return this;
         },
         _hide:function(element,callback){
             this._removeEvent(element);
@@ -70,8 +74,7 @@
             var div = document.createElement('div');
             div.className = 'toast';
             div.innerHTML = '<div class="toast-mask"></div><div class="toast-message toast-message-'+options.type+'"><h2>提示</h2><div class="toast-content">'+options.body+'<input type="text"></div><div class="toast-foot"><button data-btn="cancel">取消</button><button data-btn="sure">确定</button></div></div>';
-            document.body.appendChild(div);
-
+            
             this.handleClick = function(event){
                 var target = event.target;
                 if(target.tagName.toLowerCase()==='button'){
@@ -85,16 +88,52 @@
             }.bind(this);
 
             div.addEventListener('click', this.handleClick,false)
-            
+            document.body.appendChild(div);
+
             this._animateStart(div);
 
+        },
+        _renderToast:function(message){
+            var div = document.createElement('div');
+            div.className = 'toast-item';
+            div.innerHTML = '<div><h2>'+message+'</h2></div>';
+
+            this.toasts.push(div);
+            this._parent().appendChild(div);
+            this._animateStart(div);
+
+            return div;
+        },
+        _parent:function(){
+            if(!document.getElementById('toast')){
+                var div = document.createElement('div');
+                div.id = 'toast';
+                document.body.appendChild(div);
+            }
+            return document.getElementById('toast');
         },
         _removeEvent:function(element){
             this.value = '';
             element.removeEventListener('click',this.handleClick)
         },
         _removeDom:function(element){
-            document.body.removeChild(element)
+            var parent = element.parentNode;
+            parent.removeChild(element)
+            if(parent.id === 'toast'){
+                remove(this.toasts,element);
+                if(this.toasts.length===0){
+                    document.body.removeChild(document.getElementById('toast'))
+                }
+            }
+        }
+    }
+
+    function remove(array,item){
+        var len = array.length;
+        while (len--) {
+            if (array[len] === item) {
+                array.splice(len, 1);
+            }
         }
     }
 

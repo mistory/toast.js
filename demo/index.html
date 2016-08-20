@@ -17,17 +17,18 @@
 <button id="confirm">confirm</button>
 <button id="alert">alert</button>
 <button id="prompt">prompt</button>
-
+<button id="toasts">toast</button>
 <script>
 var confirmBtn = document.getElementById('confirm'),
 	alertBtn = document.getElementById('alert'),
-	promptBtn = document.getElementById('prompt');
+	promptBtn = document.getElementById('prompt'),
+	toastBtn = document.getElementById('toasts');
 
 confirmBtn.addEventListener('click', function(){
 	toast.confirm('hello',function(){
-		toast.alert('okBtn')
+		alert('okBtn')
 	},function(){
-		toast.alert('cancelBtn')
+		alert('cancelBtn')
 	})
 },false)
 
@@ -37,10 +38,14 @@ alertBtn.addEventListener('click', function(){
 
 promptBtn.addEventListener('click', function(){
 	toast.prompt('hello',function(){
-		toast.alert('您输入的值为：'+this.val())
+		alert(this.val())
 	},function(){
-		toast.alert('cancelBtn')
+		alert('cancelBtn')
 	})
+},false)
+
+toastBtn.addEventListener('click', function(){
+	toast.makeText('message')
 },false)
 </script>
 </body>
