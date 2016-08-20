@@ -17,12 +17,12 @@
 <button id="confirm">confirm</button>
 <button id="alert">alert</button>
 <button id="prompt">prompt</button>
-
+<button id="toasts">toast</button>
 <script>
 var confirmBtn = document.getElementById('confirm'),
 	alertBtn = document.getElementById('alert'),
-	promptBtn = document.getElementById('prompt');
-
+	promptBtn = document.getElementById('prompt'),
+	toastBtn = document.getElementById('toasts');
 confirmBtn.addEventListener('click', function(){
 	toast.confirm('hello',function(){
 		alert('okBtn')
@@ -30,17 +30,18 @@ confirmBtn.addEventListener('click', function(){
 		alert('cancelBtn')
 	})
 },false)
-
 alertBtn.addEventListener('click', function(){
-	alert('hello')
+	toast.alert('hello')
 },false)
-
 promptBtn.addEventListener('click', function(){
 	toast.prompt('hello',function(){
 		alert(this.val())
 	},function(){
 		alert('cancelBtn')
 	})
+},false)
+toastBtn.addEventListener('click', function(){
+	toast.makeText('message')
 },false)
 </script>
 </body>
