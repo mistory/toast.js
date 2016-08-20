@@ -25,6 +25,9 @@
                 cancel:function(){}
             });
         },
+        makeText:function(){
+            
+        },
         confirm:function(message,sureCallBack,cancelCallBack){
             this._render({
                 body:message,
