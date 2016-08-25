@@ -11,18 +11,24 @@
 <script src="toast.js"></script>
 <style>
 	*{margin: 0; padding: 0}
+	button{background:0 0;-webkit-appearance:none; width: 8em; border:1px solid #1aad19;line-height: 2.3; color: #1aad19;border-radius: 2px}
+	.btn-group{ text-align: center }
+	.btn-group button{ display: block; margin:10px auto 0}
 </style>
 </head>
 <body>
-<button id="confirm">confirm</button>
-<button id="alert">alert</button>
-<button id="prompt">prompt</button>
-<button id="toasts">toast</button>
+<div class="btn-group">
+	<button id="confirm">confirm</button>
+	<button id="alert">alert</button>
+	<button id="prompt">prompt</button>
+	<button id="toasts">toast</button>
+</div>
 <script>
 var confirmBtn = document.getElementById('confirm'),
 	alertBtn = document.getElementById('alert'),
 	promptBtn = document.getElementById('prompt'),
 	toastBtn = document.getElementById('toasts');
+
 confirmBtn.addEventListener('click', function(){
 	toast.confirm('hello',function(){
 		alert('okBtn')
@@ -30,9 +36,11 @@ confirmBtn.addEventListener('click', function(){
 		alert('cancelBtn')
 	})
 },false)
+
 alertBtn.addEventListener('click', function(){
 	toast.alert('hello')
 },false)
+
 promptBtn.addEventListener('click', function(){
 	toast.prompt('hello',function(){
 		alert(this.val())
@@ -40,8 +48,9 @@ promptBtn.addEventListener('click', function(){
 		alert('cancelBtn')
 	})
 },false)
+
 toastBtn.addEventListener('click', function(){
-	toast.makeText('message')
+	toast.makeText('你好')
 },false)
 </script>
 </body>
