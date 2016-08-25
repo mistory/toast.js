@@ -137,5 +137,11 @@
         }
     }
 
+    function sleep(time){
+        var start =  new Date();
+        while (new Date()-start<time) {
+            //
+        }
+    }
     return new Toast();
 });
