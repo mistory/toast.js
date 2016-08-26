@@ -30,16 +30,16 @@
             this._render({
                 body:message,
                 type:'confirm',
-                sure:sureCallBack,
-                cancel:cancelCallBack
+                sure:sureCallBack || function(){},
+                cancel:cancelCallBack || function(){}
             });      
         },
         prompt:function(message,sureCallBack,cancelCallBack){
             this._render({
                 body:'',
                 type:'prompt',
-                sure:sureCallBack,
-                cancel:cancelCallBack,
+                sure:sureCallBack || function(){},
+                cancel:cancelCallBack || function(){},
                 val:function(){
                     return this.value;
                 }.bind(this)
