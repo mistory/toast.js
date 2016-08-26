@@ -2,7 +2,7 @@
 A javascript modal for the web
 
 ### demo
-* [demo](https://mistory.github.io/toast.js/demo/index.html)
+* [demo](https://mistory.github.io/toast.js)
 
 ### Import
 ``` html
