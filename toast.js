@@ -8,17 +8,17 @@
     }
 })(typeof window !== 'undefined' ? window : this, function() {
     'use strict';
-    // 包装一个新的dom，拥有close方法
+    // 包装一个新的节点，拥有一系列方法
     var Node = function(element){
         this.element = element;
     }
     Node.prototype = {
         constructor:Node,
         close:function(){
-            alert(1)
+            alert(2)
         },
         clear:function(){
-            
+
         }
     }
 
@@ -117,10 +117,6 @@
             document.body.appendChild(div);
 
             this._animateStart(div);
-
-            // div.__proto__.close = function(){
-            //     alert(1)
-            // }
             
             return div;
         },
@@ -162,16 +158,6 @@
             }
         }
     }
-
-    var Node = function(element){
-        this.element = element;
-    }
-    Node.prototype = {
-        constructor:Node,
-        close:function(){
-            alert(1)
-        }
-    } 
 
     function remove(array,item){
         var len = array.length;
