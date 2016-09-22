@@ -20,13 +20,18 @@ toast.confirm('hello',function(){
 	// console.log('cancel')
 })
 
-toast.prompt('hello',function(){
+var hello = toast.prompt('hello',function(){
 	// console.log('ok')
 	// Get the value what you have entered
-	// this.val() 
+	// hello.val() 
 },function(){
 	// console.log('cancel')
 })
 
 toast.makeText('message')
+
+var loading = toast.loading('加载中')
+setTimeout(function(){
+	loading.clear()
+},2000)
 ```
