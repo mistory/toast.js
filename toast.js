@@ -94,14 +94,7 @@
             return document.getElementById('toast');
         }
 
-        function remove(array,item){
-            var len = array.length;
-            while (len--) {
-                if (array[len] === item) {
-                    array.splice(len, 1);
-                }
-            }
-        }
+        
 
         return {
             alert:function(message,sure,cancel){
@@ -147,6 +140,15 @@
         }
 
     }();
+
+    function remove(array,item){
+        var len = array.length;
+        while (len--) {
+            if (array[len] === item) {
+                array.splice(len, 1);
+            }
+        }
+    }
     
     return toast;
 });
