@@ -8,131 +8,83 @@
     }
 })(typeof window !== 'undefined' ? window : this, function() {
     'use strict';
-    // 包装一个新的节点，拥有一系列方法
+    var toasts = [];
     var Node = function(element){
         this.element = element;
+        this.handleClick = function(){};
+        this.value = ''
     }
     Node.prototype = {
         constructor:Node,
-        close:function(){
-            alert(2)
+        show:function(){
+            window.getComputedStyle(this.element).top;
+            this.element.classList.add('in');
         },
         clear:function(){
-
-        }
-    }
-
-    var Toast = function(){
-        this.handleClick = function(){},
-        this.value = '';
-        this.toasts = [];
-    };
-
-    Toast.prototype = {
-        version : '0.1.0',
-        constructor: Toast,
-        alert:function(message){
-            return this._render({
-                body:message,
-                type:'alert'
-            });
-        },
-        confirm:function(message,sureCallBack,cancelCallBack){
-            return this._render({
-                body:message,
-                type:'confirm',
-                sure:sureCallBack || function(){},
-                cancel:cancelCallBack || function(){}
-            });      
-        },
-        prompt:function(message,sureCallBack,cancelCallBack){
-            return this._render({
-                body:'',
-                type:'prompt',
-                sure:sureCallBack || function(){},
-                cancel:cancelCallBack || function(){},
-                val:function(){
-                    return this.value;
-                }.bind(this)
-            });
-        },
-        loading:function(message){
-            var node = this._render({
-                body:message || '加载中',
-                type:'loading',
-                sure: function(){},
-                cancel: function(){}
-            });
-            return new Node(node)
-        },
-        clear:function(element){
-            // clear方法清除el
-            this._hide(element)
-        },
-        makeText:function(message){
-            var toast = this._renderToast(message)
+            window.getComputedStyle(this.element).top;
+            this.element.classList.remove('in');
 
             setTimeout(function(){
-                this._hide(toast);
-            }.bind(this), 2000)
-
-        },
-        _hide:function(element){
-            this._removeEvent(element);
-
-            this._animateEnd(element);
-
-            setTimeout(function(){
-                this._removeDom(element)
+                this._remove()
             }.bind(this), 250)
         },
-        _animateStart:function(element){
-            window.getComputedStyle(element).top;
-            element.classList.add('in');
-        },
-        _animateEnd:function(element){
-            window.getComputedStyle(element).top;
-            element.classList.remove('in');
-        },
-        _render:function(options){
-            // dialog
-            var div = document.createElement('div');
-            div.className = 'toast';
-            div.innerHTML = '<div class="toast-message toast-message-'+options.type+'"><h2>提示</h2><div class="toast-content">'+options.body+'<input type="text"></div><div class="toast-foot"><button data-btn="cancel">取消</button><button data-btn="sure">确定</button></div></div><div class="toast-mask"></div>';
-            
+        bind:function(sure,cancel){
+            var self = this;
             this.handleClick = function(event){
                 var target = event.target;
                 if(target.tagName.toLowerCase()==='button'){
                     if(target.dataset.btn==='cancel'){
-                        options.cancel&&options.cancel()
+                        cancel&&cancel()
                     }else {
-                        this.value = div.getElementsByTagName('input')[0].value;
-                        options.sure&&options.sure()
+                        self.value = self.element.getElementsByTagName('input')[0].value;
+                        sure&&sure()
                     }
-                    this._hide(div);
+                    self.clear();
                 }
-            }.bind(this);
-
-            div.addEventListener('click', this.handleClick,false)
-            document.body.appendChild(div);
-
-            this._animateStart(div);
-            
-            return div;
+            };
+            this.element.addEventListener('click', this.handleClick,false)
+            return this;
         },
-        _renderToast:function(message){
+        val:function(){
+            return this.value;
+        },
+        _remove:function(){
+            this.element.removeEventListener('click',this.handleClick)
+
+            var parent = this.element.parentNode;
+            if(parent!==null){
+                parent.removeChild(this.element)
+                if(parent.id === 'toast'){
+                    remove(toasts,element);
+                    if(toasts.length===0){
+                       document.body.removeChild(document.getElementById('toast'))
+                    }
+                }
+            }
+        }
+    }
+    
+    var toast = function() {
+        function render(options){
+            // dialog
+            var div = document.createElement('div');
+            div.className = 'toast';
+            div.innerHTML = '<div class="toast-message toast-message-'+options.type+'"><h2>提示</h2><div class="toast-content">'+options.body+'<input type="text"></div><div class="toast-foot"><button data-btn="cancel">取消</button><button data-btn="sure">确定</button></div></div><div class="toast-mask"></div>';
+            document.body.appendChild(div);
+            return div;
+        }
+
+        function renderToast(message){
             // toast
             var div = document.createElement('div');
             div.className = 'toast-item';
             div.innerHTML = '<div><h2>'+message+'</h2></div>';
 
-            this.toasts.push(div);
-            this._parent().appendChild(div);
-            this._animateStart(div);
-
+            toasts.push(div);
+            parent().appendChild(div);
             return div;
-        },
-        _parent:function(){
+        }
+        function parent(){
             if(!document.getElementById('toast')){
                 var div = document.createElement('div');
                 div.id = 'toast';
@@ -140,33 +92,61 @@
                 return div;
             }
             return document.getElementById('toast');
-        },
-        _removeEvent:function(element){
-            this.value = '';
-            element.removeEventListener('click',this.handleClick)
-        },
-        _removeDom:function(element){
-            var parent = element.parentNode;
-            if(parent!==null){
-                parent.removeChild(element)
-                if(parent.id === 'toast'){
-                    remove(this.toasts,element);
-                    if(this.toasts.length===0){
-                        document.body.removeChild(document.getElementById('toast'))
-                    }
+        }
+
+        function remove(array,item){
+            var len = array.length;
+            while (len--) {
+                if (array[len] === item) {
+                    array.splice(len, 1);
                 }
             }
         }
-    }
 
-    function remove(array,item){
-        var len = array.length;
-        while (len--) {
-            if (array[len] === item) {
-                array.splice(len, 1);
+        return {
+            alert:function(message,sure,cancel){
+                var node = new Node(render({
+                    body:message,
+                    type:'alert'
+                }))
+                node.bind(sure,cancel).show()
+                return node
+            },
+            confirm:function(message,sure,cancel){
+                var node = new Node(render({
+                    body:message,
+                    type:'confirm'
+                }))
+                node.bind(sure,cancel).show()
+                return node   
+            },
+            prompt:function(message,sure,cancel){
+                var node = new Node(render({
+                    body:'',
+                    type:'prompt'
+                }))
+                node.bind(sure,cancel).show()
+                return node 
+            },
+            loading:function(message){
+                var node = new Node(render({
+                    body:message || '加载中',
+                    type:'loading'
+                }))
+                node.show()
+                return node
+            },
+            makeText:function(message){
+                var node = new Node(renderToast(message))
+                node.show()
+                setTimeout(function(){
+                    node.clear();
+                }, 2000)
+                return node
             }
         }
-    }
 
-    return new Toast();
+    }();
+    
+    return toast;
 });

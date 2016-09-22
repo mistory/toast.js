@@ -32,7 +32,7 @@ var confirmBtn = document.getElementById('confirm'),
 	loading = document.getElementById('loading');
 
 confirmBtn.addEventListener('click', function(){
-	var s = toast.confirm('hello',function(){
+	toast.confirm('hello',function(){
 		alert('确定')
 	},function(){
 		alert('取消')
@@ -41,12 +41,11 @@ confirmBtn.addEventListener('click', function(){
 
 alertBtn.addEventListener('click', function(){
 	toast.alert('hello')
-
 },false)
 
 promptBtn.addEventListener('click', function(){
-	toast.prompt('hello',function(){
-		alert(this.val())
+	var s = toast.prompt('hello',function(){
+		alert(s.val())
 	},function(){
 		alert('取消')
 	})
@@ -57,16 +56,11 @@ toastBtn.addEventListener('click', function(){
 },false)
 
 loading.addEventListener('click', function(){
-	var s1 = toast.loading('加载中啊')
+	var s = toast.loading('加载中啊')
 	setTimeout(function(){
-		//toast.clear(s1)
+		s.clear()
 	},2000)
 },false)
-
-// var s1 = toast.loading('加载中啊')
-
-
-
 
 
 </script>
