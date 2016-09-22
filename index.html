@@ -22,18 +22,20 @@
 	<button id="alert">alert</button>
 	<button id="prompt">prompt</button>
 	<button id="toasts">toast</button>
+	<button id="loading">loading</button>
 </div>
 <script>
 var confirmBtn = document.getElementById('confirm'),
 	alertBtn = document.getElementById('alert'),
 	promptBtn = document.getElementById('prompt'),
-	toastBtn = document.getElementById('toasts');
+	toastBtn = document.getElementById('toasts'),
+	loading = document.getElementById('loading');
 
 confirmBtn.addEventListener('click', function(){
 	toast.confirm('hello',function(){
-		alert('okBtn')
+		alert('确定')
 	},function(){
-		alert('cancelBtn')
+		alert('取消')
 	})
 },false)
 
@@ -42,16 +44,25 @@ alertBtn.addEventListener('click', function(){
 },false)
 
 promptBtn.addEventListener('click', function(){
-	toast.prompt('hello',function(){
-		alert(this.val())
+	var s = toast.prompt('hello',function(){
+		alert(s.val())
 	},function(){
-		alert('cancelBtn')
+		alert('取消')
 	})
 },false)
 
 toastBtn.addEventListener('click', function(){
 	toast.makeText('你好')
 },false)
+
+loading.addEventListener('click', function(){
+	var s = toast.loading('加载中啊')
+	setTimeout(function(){
+		s.clear()
+	},2000)
+},false)
+
+
 </script>
 </body>
 </html>
