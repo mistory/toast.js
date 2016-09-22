@@ -50,12 +50,11 @@
         },
         _remove:function(){
             this.element.removeEventListener('click',this.handleClick)
-            var self = this,
-                parent = this.element.parentNode;
+            var parent = this.element.parentNode;
             if(parent!==null){
                 parent.removeChild(this.element)
                 if(parent.id === 'toast'){
-                    remove(toasts,self.element);
+                    remove(toasts,this.element);
                     if(toasts.length===0){
                        document.body.removeChild(document.getElementById('toast'))
                     }
