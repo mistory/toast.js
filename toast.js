@@ -65,7 +65,6 @@
     
     var toast = function() {
         function render(options){
-            // dialog
             var div = document.createElement('div');
             div.className = 'toast';
             div.innerHTML = '<div class="toast-message toast-message-'+options.type+'"><h2>提示</h2><div class="toast-content">'+options.body+'<input type="text"></div><div class="toast-foot"><button data-btn="cancel">取消</button><button data-btn="sure">确定</button></div></div><div class="toast-mask"></div>';
@@ -74,7 +73,6 @@
         }
 
         function renderToast(message){
-            // toast
             var div = document.createElement('div');
             div.className = 'toast-item';
             div.innerHTML = '<div><h2>'+message+'</h2></div>';
