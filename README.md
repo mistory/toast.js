@@ -32,6 +32,6 @@ toast.makeText('message')
 
 var loading = toast.loading('加载中')
 setTimeout(function(){
-	loading.clear()
+	loading.clean()
 },2000)
 ```
