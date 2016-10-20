@@ -20,7 +20,7 @@
             window.getComputedStyle(this.element).top;
             this.element.classList.add('in');
         },
-        clear:function(){
+        clean:function(){
             window.getComputedStyle(this.element).top;
             this.element.classList.remove('in');
 
@@ -39,7 +39,7 @@
                         self.value = self.element.getElementsByTagName('input')[0].value;
                         sure&&sure()
                     }
-                    self.clear();
+                    self.clean();
                 }
             };
             this.element.addEventListener('click', this.handleClick,false)
@@ -130,7 +130,7 @@
                 var node = new Node(renderToast(message))
                 node.show()
                 setTimeout(function(){
-                    node.clear();
+                    node.clean();
                 }, 2000)
                 return node
             }
